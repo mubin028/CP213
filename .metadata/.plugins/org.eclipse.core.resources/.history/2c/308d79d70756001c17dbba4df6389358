@@ -1,0 +1,95 @@
+package cp213;
+import java.util.*;
+
+/**
+ * Wraps around an Order object to ask for MenuItems and quantities.
+ *
+ * @author your name here
+ * @author Abdul-Rahman Mawlood-Yunis
+ * @author David Brown
+ * @version 2021-11-01
+ */
+public class Cashier {
+
+    private Menu menu = null;
+
+    /**
+     * Constructor.
+     *
+     * @param menu A Menu.
+     */
+    public Cashier(Menu menu) {
+	this.menu = menu;
+    }
+
+    /**
+     * Asks for commands and quantities. Prints a receipt when all orders have been
+     * placed.
+     *
+     * @return the completed Order.
+     */
+	public Order takeOrder() {
+
+		Scanner inp = new Scanner(System.in);
+		Order foodOrder = new Order();
+		String temp;
+		int i = 0;
+		int quantity;
+		
+		boolean ordering = true;
+		boolean inputting;
+
+		System.out.print("Welcome to WLU Foodorama!");
+		System.out.println("");
+		System.out.println("");
+
+		while (ordering) {
+			System.out.println("Menu:");
+			System.out.println(this.menu);
+			System.out.println("Press 0 when done.");
+			System.out.println("Press any other key to see the menu again.");
+			System.out.println("");
+
+			inputting = true;
+			while (inputting) {
+				System.out.print("Command: ");
+				temp = inp.nextLine();
+
+				if (Character.isDigit(temp.charAt(0))) {
+					i = Integer.valueOf(temp);
+					if (i == 0) {
+						ordering = false;
+						inputting = false;
+					} else if (i > this.menu.size()) {
+						inputting = false;
+						continue;
+					} else if (i < 0) {
+						inputting = false;
+						continue;
+					} else {
+						System.out.print("How many do you want? ");
+						temp = inp.nextLine();
+
+						if (Character.isDigit(temp.charAt(0))) {
+
+							if (Integer.valueOf(temp) < 1) {
+								System.out.println("Not a valid number");
+								inputting = false;
+							} else {
+								quantity = Integer.valueOf(temp);
+								foodOrder.add(menu.getItem(i - 1), quantity);
+							}
+						} else {
+							System.out.println("Not a valid number");
+							inputting = false;
+						}
+					}
+				} else {
+					System.out.println("Not a valid number");
+					inputting = false;
+				}
+			}
+		}
+		return foodOrder;
+	}
+}

@@ -1,0 +1,103 @@
+package cp213;
+import java.util.*;
+
+/**
+ * Wraps around an Order object to ask for MenuItems and quantities.
+ *
+ * @author your name here
+ * @author Abdul-Rahman Mawlood-Yunis
+ * @author David Brown
+ * @version 2021-11-01
+ */
+public class Cashier {
+
+    private Menu menu = null;
+
+    /**
+     * Constructor.
+     *
+     * @param menu A Menu.
+     */
+    public Cashier(Menu menu) {
+	this.menu = menu;
+    }
+
+    /**
+     * Asks for commands and quantities. Prints a receipt when all orders have been
+     * placed.
+     *
+     * @return the completed Order.
+     */
+    public Order takeOrder() {
+
+	Scanner inp = new Scanner(System.in);
+	String input;
+	int index=0;
+	int quantity;
+	Order foodOrder = new Order();
+	boolean ordering = true;
+	boolean inputting;
+	
+	System.out.print("Welcome to WLU Foodorama!");
+	System.out.println("");
+	System.out.println("");
+	
+	
+	
+	while(ordering) {
+		System.out.println("Menu:");
+		System.out.println(this.menu);
+		System.out.println("Press 0 when done.");
+		System.out.println("Press any other key to see the menu again.");
+		System.out.println("");
+		
+		
+		inputting = true;
+		while(inputting) {
+			System.out.print("Command: ");
+			input = inp.nextLine();
+			
+			if (Character.isDigit(input.charAt(0))) {
+				index = Integer.valueOf(input);
+				if (index ==0) {
+					ordering = false;
+					inputting = false;
+				}else if (index > this.menu.size()) {
+					inputting = false;
+					continue;
+				}else if (index < 0) {
+					inputting = false;
+					continue;
+				}else {
+					System.out.print("How many do you want? ");
+					input = inp.nextLine();
+					
+					if (Character.isDigit(input.charAt(0))) {
+						
+						if (Integer.valueOf(input)<1) {
+							System.out.println("Not a valid number");
+						}
+						
+						
+						
+					}else {
+						
+					}
+					
+					
+					
+					
+				}
+			}
+		}
+	}
+	
+	
+	
+	return null;
+	
+	
+
+	
+    }
+}
